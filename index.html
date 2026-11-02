@@ -6,14 +6,14 @@
   <title>Rutero Margarita | Movilidad Insular Inteligente</title>
   
   <!-- Manifest PWA -->
-  <meta name="theme-color" content="#0284c7">
+  <meta name="theme-color" content="#0f172a">
   <link rel="manifest" href="data:application/manifest+json,{
     'name': 'Rutero Margarita',
     'short_name': 'RuteroMGA',
     'start_url': './index.html',
     'display': 'standalone',
-    'background_color': '#f8fafc',
-    'theme_color': '#0284c7',
+    'background_color': '#0f172a',
+    'theme_color': '#0f172a',
     'icons': [{
       'src': 'https://img.icons8.com/color/192/000000/bus.png',
       'sizes': '192x192',
@@ -32,29 +32,31 @@
     :root {
       --insular-blue: #0284c7;
       --insular-dark: #0f172a;
+      --insular-card: #1e293b;
       --insular-sun: #f59e0b;
       --insular-green: #10b981;
       --insular-red: #d90429;
-      --bg-app: #f8fafc;
-      --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --border-light: #e2e8f0;
+      --bg-app: #090d16;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-light: #334155;
       --radius-xl: 16px;
       --radius-md: 10px;
-      --shadow-card: 0 4px 16px rgba(0,0,0,0.06);
+      --shadow-card: 0 4px 16px rgba(0,0,0,0.3);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg-app); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+    body { background-color: var(--bg-app); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 70px; }
 
+    /* HEADER SUPERIOR OSCURO */
     header {
       background-color: var(--insular-dark);
       color: white;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      border-bottom: 1px solid var(--border-light);
     }
 
     .top-bar {
@@ -86,29 +88,6 @@
     .brand-text h1 { font-size: 1.05rem; font-weight: 700; line-height: 1; }
     .brand-text span { font-size: 0.7rem; color: #38bdf8; }
 
-    .nav-tabs {
-      background: #1e293b;
-      display: flex;
-      padding: 0 1rem;
-      overflow-x: auto;
-      gap: 4px;
-    }
-
-    .tab-btn {
-      background: none;
-      border: none;
-      color: #94a3b8;
-      padding: 10px 14px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .tab-btn:hover, .tab-btn.active { color: white; border-bottom-color: var(--insular-blue); }
-
     .app-container {
       max-width: 1200px;
       margin: 1rem auto;
@@ -120,45 +99,96 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    .city-planner-box {
+    /* TARJETAS Y CONTENEDORES ESTILO MOOVIT / CITYMAPPER */
+    .city-card {
       background: var(--card-bg);
       border-radius: var(--radius-xl);
       padding: 1.25rem;
       box-shadow: var(--shadow-card);
       border: 1px solid var(--border-light);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
+    .gps-alert-box {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--insular-sun);
+      color: #fde68a;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    /* FAVORITOS TIPO CASA / TRABAJO */
+    .fav-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-light);
+      cursor: pointer;
+    }
+    .fav-item-row:last-child { border-bottom: none; }
+    .fav-info { display: flex; align-items: center; gap: 12px; }
+    .fav-icon {
+      background: rgba(2, 132, 199, 0.2);
+      color: var(--insular-blue);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    /* BARRA DE NAVEGACIÓN INFERIOR FIJA */
+    .bottom-nav-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--insular-dark);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      z-index: 2000;
+    }
+
+    .nav-item {
+      background: none; border: none; color: var(--text-muted);
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      font-size: 0.7rem; font-weight: 600; cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-item i { font-size: 1.1rem; }
+    .nav-item.active, .nav-item:hover { color: #38bdf8; }
+
+    /* GRID Y MAPA */
     .grid-layout {
       display: grid;
       grid-template-columns: 400px 1fr;
       gap: 1.5rem;
       align-items: start;
     }
-
     @media (max-width: 992px) { .grid-layout { grid-template-columns: 1fr; } }
 
     .routes-sidebar {
-      max-height: calc(100vh - 220px);
+      max-height: calc(100vh - 200px);
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding-right: 4px;
     }
 
     .route-item-card {
-      background: white;
+      background: var(--card-bg);
       border-radius: var(--radius-md);
       padding: 1rem;
       border: 1px solid var(--border-light);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: border-color 0.2s;
     }
-
-    .route-item-card:hover { border-color: var(--insular-blue); box-shadow: var(--shadow-card); }
-    .route-item-card.selected { border: 2px solid var(--insular-blue); background: #f0f9ff; }
+    .route-item-card:hover { border-color: var(--insular-blue); }
 
     .subline-select {
       width: 100%;
@@ -167,25 +197,20 @@
       border-radius: 6px;
       border: 1px solid var(--border-light);
       font-size: 0.8rem;
-      background: #f8fafc;
+      background: #0f172a;
       color: var(--text-main);
       outline: none;
-      font-weight: 500;
     }
 
     .map-container {
-      position: sticky;
-      top: 110px;
-      height: calc(100vh - 170px);
-      min-height: 450px;
+      height: calc(100vh - 180px);
+      min-height: 400px;
       border-radius: var(--radius-xl);
       overflow: hidden;
-      box-shadow: var(--shadow-card);
       border: 1px solid var(--border-light);
       display: flex;
       flex-direction: column;
     }
-
     #map { width: 100%; height: 100%; }
 
     .bcv-floating-bar {
@@ -198,11 +223,12 @@
       font-size: 0.85rem;
       flex-wrap: wrap;
       gap: 8px;
+      border-top: 1px solid var(--border-light);
     }
 
     .rate-input {
       background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 1px solid var(--border-light);
       color: white;
       padding: 4px 8px;
       border-radius: 6px;
@@ -221,45 +247,42 @@
       font-weight: 600;
       cursor: pointer;
     }
-    .btn-action:hover { background: #0369a1; }
-
-    /* ESTILOS SECCIÓN MARÍTIMA */
-    . maritime-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem;
-    }
 
     .maritime-card {
-      background: white;
+      background: var(--card-bg);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-md);
       padding: 1.25rem;
-      box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-
     .maritime-badge {
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      width: fit-content;
-      color: white;
+      font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; width: fit-content; color: white;
     }
     .badge-ferry { background: var(--insular-blue); }
     .badge-lancha { background: var(--insular-sun); color: #78350f; }
     .badge-turismo { background: var(--insular-green); }
 
+    .taxi-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .wa-btn {
+      background: #16a34a; color: white; text-decoration: none; padding: 6px 12px;
+      border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: inline-flex;
+      align-items: center; gap: 6px; margin-top: 10px;
+    }
+
     footer {
       background: var(--insular-dark);
-      color: #94a3b8;
+      color: var(--text-muted);
       text-align: center;
       padding: 1.5rem;
       font-size: 0.85rem;
-      margin-top: 2rem;
+      border-top: 1px solid var(--border-light);
     }
   </style>
 </head>
@@ -271,27 +294,84 @@
         <span class="brand-logo">RM</span>
         <div class="brand-text">
           <h1>Rutero Margarita</h1>
-          <span>Movilidad Insular e Interinsular</span>
+          <span>Movilidad Insular Inteligente</span>
         </div>
       </a>
       <div style="display: flex; align-items: center; gap: 6px; background: rgba(16,185,129,0.15); border: 1px solid var(--insular-green); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; color: #34d399;">
         <div style="width: 7px; height: 7px; background: var(--insular-green); border-radius: 50%;"></div>
-        <span>Servicio Activo</span>
+        <span>Activo</span>
       </div>
-    </div>
-
-    <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('tab-routes', event)"><i class="fa-solid fa-map-location-dot"></i> Líneas y Mapa</button>
-      <button class="tab-btn" onclick="switchTab('tab-maritime', event)"><i class="fa-solid fa-ferry"></i> Puertos y Marítimo</button>
-      <button class="tab-btn" onclick="switchTab('tab-taxis', event)"><i class="fa-solid fa-taxi"></i> Taxis y Privados</button>
-      <button class="tab-btn" onclick="switchTab('tab-favs', event)"><i class="fa-solid fa-star"></i> Favoritos</button>
     </div>
   </header>
 
   <div class="app-container">
 
-    <!-- TAB 1: RUTAS Y MAPA -->
-    <div id="tab-routes" class="tab-content active">
+    <!-- PESTAÑA 1: INICIO Y FAVORITOS (ESTILO IMAGEN) -->
+    <div id="tab-home" class="tab-content active">
+      
+      <!-- Banner GPS -->
+      <div class="gps-alert-box">
+        <i class="fa-solid fa-location-arrow fa-lg"></i>
+        <span>Activa los permisos de Localización (GPS) para recibir información precisa de rutas en Nueva Esparta[span_2](start_span)[span_2](end_span).</span>
+      </div>
+
+      <!-- Accesos Rápidos Favoritos -->
+      <div class="city-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 style="font-size: 1rem; font-weight: 700;">Favoritos</h3>
+          <span style="font-size: 0.8rem; color: var(--insular-blue); cursor: pointer; font-weight: 600;">Editar</span>
+        </div>
+
+        <div class="fav-item-row" onclick="quickSelectRoute('porlamar-juangriego')">
+          <div class="fav-info">
+            <div class="fav-icon"><i class="fa-solid fa-house"></i></div>
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Casa</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Porlamar / Conejeros</div>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
+        </div>
+
+        <div class="fav-item-row" onclick="quickSelectRoute('antolin-pampatar-la-vela')">
+          <div class="fav-info">
+            <div class="fav-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Trabajo / Centro</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Pampatar / C.C. La Vela</div>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
+        </div>
+
+        <div class="fav-item-row" onclick="quickSelectRoute('porlamar-punta-de-piedras')">
+          <div class="fav-info">
+            <div class="fav-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--insular-sun);"><span style="font-size:0.8rem; font-weight:bold;">⚓</span></div>
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Terminal de Ferries</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Punta de Piedras</div>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
+        </div>
+      </div>
+
+      <!-- Opciones de Transporte Privado -->
+      <div class="city-card">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 8px;">Otras opciones de transporte privado</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+          <div>
+            <div style="font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-car-side" style="color: var(--insular-sun);"></i> Taxis y Apps de Movilidad Insular</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Solicitud directa de traslados ejecutivos y privados[span_3](start_span)[span_3](end_span).</div>
+          </div>
+          <button onclick="switchTab('tab-taxis')" class="btn-action" style="padding: 8px 14px;">Ver</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PESTAÑA 2: LÍNEAS Y MAPA -->
+    <div id="tab-lines" class="tab-content">
       <div class="grid-layout">
         <div class="routes-sidebar" id="routesList"></div>
         <div class="map-container">
@@ -302,97 +382,100 @@
               <input type="number" id="exchangeRate" class="rate-input" value="88.50" step="0.1" oninput="renderRoutesList()">
               <button class="btn-action" onclick="fetchBcvRate()"><i class="fa-solid fa-rotate"></i></button>
             </div>
-            <div id="fareStatus" style="font-size: 0.75rem; color: #38bdf8;">BCV en línea</div>
+            <div id="fareStatus" style="font-size: 0.75rem; color: #38bdf8;">En línea</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- TAB 2: PUERTOS Y CONEXIONES MARÍTIMAS -->
+    <!-- PESTAÑA 3: PUERTOS Y MARÍTIMO -->
     <div id="tab-maritime" class="tab-content">
-      <div class="city-planner-box">
-        <h2 style="font-size: 1.15rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-anchor" style="color: var(--insular-blue);"></i> Conexiones Marítimas y Zarpes (Tierra Firme e Islas Hermanas)</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Puertos autorizados de entrada y salida desde la Isla de Margarita.</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;">
-          
-          <div class="maritime-card" style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <span class="maritime-badge badge-ferry" style="background: var(--insular-blue); color:white; padding:3px 8px; border-radius:4px; font-size:0.7rem; font-weight:700;">Ferry Comercial</span>
-            <h4 style="font-size: 0.95rem; margin: 6px 0 2px 0;">Punta de Piedras ➔ Puerto La Cruz</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Traslado de pasajeros y vehículos hacia el estado Anzoátegui.</p>
-          </div>
-
-          <div class="maritime-card" style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <span class="maritime-badge badge-ferry" style="background: var(--insular-blue); color:white; padding:3px 8px; border-radius:4px; font-size:0.7rem; font-weight:700;">Ferry Comercial</span>
-            <h4 style="font-size: 0.95rem; margin: 6px 0 2px 0;">Punta de Piedras ➔ Cumaná</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Conexión directa con el estado Sucre.</p>
-          </div>
-
-          <div class="maritime-card" style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <span class="maritime-badge badge-lancha" style="background: var(--insular-sun); color:#78350f; padding:3px 8px; border-radius:4px; font-size:0.7rem; font-weight:700;">Terminal de Lanchas</span>
-            <h4 style="font-size: 0.95rem; margin: 6px 0 2px 0;">Terminal de La Isleta ➔ Isla de Coche</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Zarpes frecuentes de lanchas de pasajeros hacia San Pedro de Coche.</p>
-          </div>
-
-          <div class="maritime-card" style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <span class="maritime-badge badge-lancha" style="background: var(--insular-sun); color:#78350f; padding:3px 8px; border-radius:4px; font-size:0.7rem; font-weight:700;">Embarcadero</span>
-            <h4 style="font-size: 0.95rem; margin: 6px 0 2px 0;">Playa El Yaque ➔ Isla de Coche</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Lanchas y traslados turísticos diarios hacia Coche.</p>
-          </div>
-
-          <div class="maritime-card" style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <span class="maritime-badge badge-turismo" style="background: var(--insular-green); color:white; padding:3px 8px; border-radius:4px; font-size:0.7rem; font-weight:700;">Muelle Histórico</span>
-            <h4 style="font-size: 0.95rem; margin: 6px 0 2px 0;">Faro de La Puntilla (Porlamar) ➔ Carúpano / Coche</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Hidrovías y rutas de navegación hacia Sucre e interinsular.</p>
-          </div>
-
-          <div class="maritime-card" style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <span class="maritime-badge badge-turismo" style="background: var(--insular-green); color:white; padding:3px 8px; border-radius:4px; font-size:0.7rem; font-weight:700;">Excursión Turística</span>
-            <h4 style="font-size: 0.95rem; margin: 6px 0 2px 0;">Punta de Piedras / El Yaque ➔ Isla de Cubagua</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Catamaranes y lanchas para visitas a las ruinas y bahías de Cubagua.</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 3: TAXIS Y PRIVADOS -->
-    <div id="tab-taxis" class="tab-content">
-      <div class="city-planner-box">
-        <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-taxi" style="color: var(--insular-sun);"></i> Directorio de Taxis y Movilidad Privada</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Líneas confiables con cobertura en toda Nueva Esparta.</p>
+      <div class="city-card">
+        <h2 style="font-size: 1.15rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-anchor" style="color: var(--insular-blue);"></i> Conexiones Marítimas (Tierra Firme e Islas Hermanas)</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Puertos autorizados de zarpe desde Margarita.</p>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem;">
-          <div style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <h4 style="font-size: 0.95rem; margin-bottom: 4px;">Taxi Sambil / Pampatar</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Cobertura: Zona Comercial, Costa Azul, Hoteles.</p>
-            <a href="https://wa.me/584120000000" target="_blank" style="background: #16a34a; color: white; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;"><i class="fa-brands fa-whatsapp"></i> Pedir Taxi</a>
+          <div class="maritime-card">
+            <span class="maritime-badge badge-ferry">Ferry Comercial</span>
+            <h4 style="font-size: 0.95rem; margin: 4px 0;">Punta de Piedras ➔ Puerto La Cruz</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Pasajeros y vehículos hacia Anzoátegui.</p>
           </div>
-          <div style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <h4 style="font-size: 0.95rem; margin-bottom: 4px;">Asociación Conejeros</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Cobertura: Mercado de Conejeros, Porlamar Centro.</p>
-            <a href="https://wa.me/584120000000" target="_blank" style="background: #16a34a; color: white; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;"><i class="fa-brands fa-whatsapp"></i> Pedir Taxi</a>
+          <div class="maritime-card">
+            <span class="maritime-badge badge-ferry">Ferry Comercial</span>
+            <h4 style="font-size: 0.95rem; margin: 4px 0;">Punta de Piedras ➔ Cumaná</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Conexión con el estado Sucre.</p>
           </div>
-          <div style="background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 1.25rem;">
-            <h4 style="font-size: 0.95rem; margin-bottom: 4px;">Aeropuerto VIP (PMV)</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Cobertura: Traslados seguros desde/hacia el aeropuerto.</p>
-            <a href="https://wa.me/584120000000" target="_blank" style="background: #16a34a; color: white; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;"><i class="fa-brands fa-whatsapp"></i> Pedir Taxi</a>
+          <div class="maritime-card">
+            <span class="maritime-badge badge-lancha">Terminal de Lanchas</span>
+            <h4 style="font-size: 0.95rem; margin: 4px 0;">Terminal de La Isleta ➔ Isla de Coche</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Zarpes frecuentes hacia San Pedro de Coche.</p>
+          </div>
+          <div class="maritime-card">
+            <span class="maritime-badge badge-lancha">Embarcadero</span>
+            <h4 style="font-size: 0.95rem; margin: 4px 0;">Playa El Yaque ➔ Isla de Coche</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Traslados turísticos diarios.</p>
+          </div>
+          <div class="maritime-card">
+            <span class="maritime-badge badge-turismo">Muelle Histórico</span>
+            <h4 style="font-size: 0.95rem; margin: 4px 0;">Faro de La Puntilla (Porlamar) ➔ Carúpano</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Rutas de navegación interinsular.</p>
+          </div>
+          <div class="maritime-card">
+            <span class="maritime-badge badge-turismo">Excursión</span>
+            <h4 style="font-size: 0.95rem; margin: 4px 0;">Punta de Piedras ➔ Isla de Cubagua</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Catamaranes turísticos.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- TAB 4: FAVORITOS -->
-    <div id="tab-favs" class="tab-content">
-      <div class="city-planner-box">
-        <h3 style="font-size: 1.1rem; margin-bottom: 1rem;"><i class="fa-solid fa-star" style="color: var(--insular-sun);"></i> Tus Líneas y Rutas Guardadas</h3>
-        <div id="favoritesListContainer">
-          <p style="font-size: 0.85rem; color: var(--text-muted);">No tienes favoritos aún. Toca la estrella en las tarjetas de ruta para añadirlas.</p>
+    <!-- PESTAÑA 4: TAXIS Y PRIVADOS -->
+    <div id="tab-taxis" class="tab-content">
+      <div class="city-card">
+        <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-taxi" style="color: var(--insular-sun);"></i> Directorio de Taxis y Movilidad Privada</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Líneas confiables con cobertura en Nueva Esparta.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem;">
+          <div class="taxi-box">
+            <h4 style="font-size: 0.95rem; margin-bottom: 4px;">Taxi Sambil / Pampatar</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Costa Azul, Centros Comerciales.</p>
+            <a href="https://wa.me/584120000000" target="_blank" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Pedir Taxi</a>
+          </div>
+          <div class="taxi-box">
+            <h4 style="font-size: 0.95rem; margin-bottom: 4px;">Asociación Conejeros</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Mercado de Conejeros, Porlamar Centro.</p>
+            <a href="https://wa.me/584120000000" target="_blank" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Pedir Taxi</a>
+          </div>
+          <div class="taxi-box">
+            <h4 style="font-size: 0.95rem; margin-bottom: 4px;">Aeropuerto VIP (PMV)</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Traslados seguros desde/hacia el aeropuerto.</p>
+            <a href="https://wa.me/584120000000" target="_blank" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Pedir Taxi</a>
+          </div>
         </div>
       </div>
     </div>
 
   </div>
+
+  <!-- BARRA DE NAVEGACIÓN INFERIOR (ESTILO REFERENCIA)[span_4](start_span)[span_4](end_span) -->
+  <nav class="bottom-nav-bar">
+    <button class="nav-item active" onclick="switchTab('tab-home', event)">
+      <i class="fa-solid fa-compass"></i>
+      <span>Inicio</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('tab-lines', event)">
+      <i class="fa-solid fa-bus"></i>
+      <span>Líneas</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('tab-maritime', event)">
+      <i class="fa-solid fa-ferry"></i>
+      <span>Marítimo</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('tab-taxis', event)">
+      <i class="fa-solid fa-taxi"></i>
+      <span>Taxis</span>
+    </button>
+  </nav>
 
   <footer>
     <p><strong>Rutero Margarita</strong> &copy; 2026 — Movilidad Urbana e Insular.</p>
@@ -404,11 +487,20 @@
   <script>
     const routesData = [
       {
+        id: "porlamar-punta-de-piedras",
+        name: "Porlamar ↔ Punta de Piedras (Ferries)",
+        operators: [
+          { name: "Bus Margarita / TransMargarita", type: "Bus Yutong", fareUsd: 1.00 },
+          { name: "Línea Tubores / Por Puesto", type: "Carro por Puesto", fareUsd: 1.50 }
+        ],
+        coords: [[10.9576, -63.8697], [10.9123, -63.9142], [10.9085, -64.1011]]
+      },
+      {
         id: "antolin-pampatar-la-vela",
         name: "Antolín del Campo ↔ Pampatar / C.C. La Vela",
         operators: [
-          { name: "Línea Antolín - Maneiro", type: "Colectivo", fareUsd: 1.25, schedule: "06:00 AM - 07:00 PM" },
-          { name: "Unidades Bus Margarita (TransMargarita)", type: "Bus Yutong", fareUsd: 1.00, schedule: "06:30 AM - 06:00 PM" }
+          { name: "Línea Antolín - Maneiro", type: "Colectivo", fareUsd: 1.25 },
+          { name: "Bus Margarita (TransMargarita)", type: "Bus Yutong", fareUsd: 1.00 }
         ],
         coords: [[11.1438, -63.8625], [11.0333, -63.8628], [10.9983, -63.7961], [10.9880, -63.8150]]
       },
@@ -416,34 +508,37 @@
         id: "porlamar-juangriego",
         name: "Porlamar ↔ Juangriego",
         operators: [
-          { name: "Línea Juangriego / Turis-Mar", type: "Colectivo", fareUsd: 1.00, schedule: "05:30 AM - 07:30 PM" },
-          { name: "Asociación de Carros por Puesto Norte", type: "Por Puesto", fareUsd: 1.50, schedule: "06:00 AM - 06:00 PM" }
+          { name: "Línea Juangriego / Turis-Mar", type: "Colectivo", fareUsd: 1.00 },
+          { name: "Carros por Puesto Norte", type: "Por Puesto", fareUsd: 1.50 }
         ],
         coords: [[10.9576, -63.8697], [10.9631, -63.8491], [11.0333, -63.8628], [11.0818, -63.9654]]
-      },
-      {
-        id: "porlamar-pampatar",
-        name: "Porlamar ↔ Pampatar / C.C. Sambil",
-        operators: [
-          { name: "A.C. Pampatar - Porlamar", type: "Colectivo", fareUsd: 0.75, schedule: "06:00 AM - 08:00 PM" },
-          { name: "Bus Margarita (Eje Maneiro)", type: "Bus Yutong", fareUsd: 0.75, schedule: "06:00 AM - 07:00 PM" }
-        ],
-        coords: [[10.9576, -63.8697], [10.9822, -63.8189], [10.9983, -63.7961]]
       }
     ];
 
-    let favorites = JSON.parse(localStorage.getItem('mga_favs') || '[]');
     let map = L.map('map').setView([10.9971, -63.9113], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
     let activePolyline = null;
 
-    function switchTab(tabId, e) {
+    function switchTab(tabId, event) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.bottom-nav-bar .nav-item').forEach(el => el.classList.remove('active'));
+      
       document.getElementById(tabId).classList.add('active');
-      e.currentTarget.classList.add('active');
-      if(tabId === 'tab-routes') setTimeout(() => map.invalidateSize(), 200);
-      if(tabId === 'tab-favs') renderFavorites();
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+      } else {
+        // Enlaces directos programáticos
+        const mapping = {'tab-home': 0, 'tab-lines': 1, 'tab-maritime': 2, 'tab-taxis': 3};
+        document.querySelectorAll('.bottom-nav-bar .nav-item')[mapping[tabId]].classList.add('active');
+      }
+
+      if(tabId === 'tab-lines') setTimeout(() => map.invalidateSize(), 200);
+    }
+
+    function quickSelectRoute(routeId) {
+      switchTab('tab-lines');
+      const route = routesData.find(r => r.id === routeId);
+      if(route) selectRouteOnMap(route);
     }
 
     async function fetchBcvRate() {
@@ -452,11 +547,11 @@
         const data = await response.json();
         if(data && data.promedio) {
           document.getElementById('exchangeRate').value = data.promedio;
-          document.getElementById('fareStatus').innerText = "BCV en línea";
+          document.getElementById('fareStatus').innerText = "En línea";
           renderRoutesList();
         }
       } catch(e) {
-        document.getElementById('fareStatus').innerText = "Modo manual";
+        document.getElementById('fareStatus').innerText = "Manual";
       }
     }
 
@@ -466,7 +561,6 @@
       const rate = parseFloat(document.getElementById('exchangeRate').value) || 1;
 
       routesData.forEach(route => {
-        const isFav = favorites.includes(route.id);
         const card = document.createElement('div');
         card.className = 'route-item-card';
         card.onclick = () => selectRouteOnMap(route);
@@ -478,14 +572,7 @@
         });
 
         card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span style="font-size: 0.75rem; font-weight: 700; color: var(--insular-blue); background: #e0f2fe; padding: 3px 8px; border-radius: 4px;">Ruta Insular</span>
-            <button onclick="toggleFavorite('${route.id}', event)" style="background:none; border:none; cursor:pointer; color:${isFav ? '#f59e0b' : '#cbd5e1'}; font-size:1rem;">
-              <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
-            </button>
-          </div>
-          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; color: var(--insular-dark);">${route.name}</div>
-          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Líneas operativas en este tramo:</div>
+          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; color: var(--text-main);">${route.name}</div>
           <select class="subline-select" onclick="event.stopPropagation()">
             ${optionsHtml}
           </select>
@@ -498,36 +585,6 @@
       if(activePolyline) map.removeLayer(activePolyline);
       activePolyline = L.polyline(route.coords, { color: '#0284c7', weight: 6 }).addTo(map);
       map.fitBounds(activePolyline.getBounds(), { padding: [30, 30] });
-    }
-
-    function toggleFavorite(id, e) {
-      e.stopPropagation();
-      if(favorites.includes(id)) {
-        favorites = favorites.filter(f => f !== id);
-      } else {
-        favorites.push(id);
-      }
-      localStorage.setItem('mga_favs', JSON.stringify(favorites));
-      renderRoutesList();
-    }
-
-    function renderFavorites() {
-      const container = document.getElementById('favoritesListContainer');
-      container.innerHTML = '';
-      const favRoutes = routesData.filter(r => favorites.includes(r.id));
-      
-      if(favRoutes.length === 0) {
-        container.innerHTML = `<p style="font-size: 0.85rem; color: var(--text-muted);">No tienes rutas favoritas guardadas.</p>`;
-        return;
-      }
-
-      favRoutes.forEach(route => {
-        const div = document.createElement('div');
-        div.className = 'route-item-card';
-        div.style.marginBottom = '8px';
-        div.innerHTML = `<div style="font-weight:700; font-size:0.9rem;">${route.name}</div><div style="font-size:0.75rem; color:var(--insular-blue);">${route.operators[0].name}</div>`;
-        container.appendChild(div);
-      });
     }
 
     window.addEventListener('DOMContentLoaded', () => {
