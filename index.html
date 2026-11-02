@@ -49,7 +49,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-app); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 70px; }
 
-    /* HEADER SUPERIOR OSCURO */
     header {
       background-color: var(--insular-dark);
       color: white;
@@ -99,7 +98,6 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* BANNER CON MOTIVO INSULAR */
     .hero-banner {
       background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1000&auto=format&fit=crop') center/cover;
       border-radius: var(--radius-xl);
@@ -108,11 +106,9 @@
       border: 1px solid var(--border-light);
       box-shadow: var(--shadow-card);
     }
-
     .hero-banner h2 { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
     .hero-banner p { font-size: 0.85rem; color: #cbd5e1; }
 
-    /* TARJETAS ESTILO INTERFAZ */
     .city-card {
       background: var(--card-bg);
       border-radius: var(--radius-xl);
@@ -141,7 +137,6 @@
       font-size: 0.9rem;
     }
 
-    /* BARRA DE NAVEGACIÓN INFERIOR FIJA */
     .bottom-nav-bar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -162,7 +157,6 @@
     .nav-item i { font-size: 1.1rem; }
     .nav-item.active, .nav-item:hover { color: #38bdf8; }
 
-    /* GRID Y MAPA */
     .grid-layout {
       display: grid;
       grid-template-columns: 400px 1fr;
@@ -191,7 +185,7 @@
 
     .subline-select {
       width: 100%;
-      margin-top: 8px;
+      margin: 8px 0;
       padding: 6px 10px;
       border-radius: 6px;
       border: 1px solid var(--border-light);
@@ -245,7 +239,12 @@
       font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
+    .btn-action:hover { background: #0369a1; }
 
     .maritime-card {
       background: var(--card-bg);
@@ -254,11 +253,8 @@
       padding: 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-      transition: border-color 0.2s;
+      gap: 8px;
     }
-    .maritime-card:hover { border-color: var(--insular-blue); }
 
     .maritime-badge {
       font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; width: fit-content; color: white;
@@ -309,21 +305,16 @@
 
   <div class="app-container">
 
-    <!-- PESTAÑA 1: INICIO Y ACCESOS RÁPIDOS -->
+    <!-- PESTAÑA 1: INICIO -->
     <div id="tab-home" class="tab-content active">
-      
-      <!-- Banner con imagen de la Isla de Margarita -->
       <div class="hero-banner">
         <h2>Explora Nueva Esparta</h2>
         <p>Conexiones terrestres, marítimas e insulares actualizadas para tu movilidad diaria.</p>
       </div>
 
-      <!-- Accesos Rápidos Favoritos -->
       <div class="city-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h3 style="font-size: 1rem; font-weight: 700;">Accesos Frecuentes</h3>
-        </div>
-
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px;">Accesos Frecuentes</h3>
+        
         <div class="fav-item-row" onclick="quickSelectRoute('porlamar-juangriego')">
           <div class="fav-info">
             <div class="fav-icon"><i class="fa-solid fa-house"></i></div>
@@ -350,29 +341,16 @@
           <div class="fav-info">
             <div class="fav-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--insular-sun);"><i class="fa-solid fa-anchor"></i></div>
             <div>
-              <div style="font-weight: 600; font-size: 0.9rem;">Zarpes a Tierra Firme</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted);">Navibus, Conferry, Gran Cacique y Lanchas</div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Zarpes a Tierra Firme e Islas</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Ferries y lanchas autorizadas</div>
             </div>
           </div>
           <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem;"></i>
         </div>
       </div>
-
-      <!-- Opciones de Transporte Privado -->
-      <div class="city-card">
-        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 8px;">Transporte Privado y Taxis</h3>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
-          <div>
-            <div style="font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-taxi" style="color: var(--insular-sun);"></i> Directorio de Líneas Confiables</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted);">Solicitud directa de traslados por WhatsApp.</div>
-          </div>
-          <button onclick="switchTab('tab-taxis')" class="btn-action" style="padding: 8px 14px;">Ver</button>
-        </div>
-      </div>
-
     </div>
 
-    <!-- PESTAÑA 2: LÍNEAS Y MAPA (TERRESTRE) -->
+    <!-- PESTAÑA 2: LÍNEAS Y MAPA -->
     <div id="tab-lines" class="tab-content">
       <div class="grid-layout">
         <div class="routes-sidebar" id="routesList"></div>
@@ -390,54 +368,72 @@
       </div>
     </div>
 
-    <!-- PESTAÑA 3: PUERTOS Y MARÍTIMO (CON NAVEGAR EN MAPA) -->
+    <!-- PESTAÑA 3: PUERTOS Y MARÍTIMO CON GOOGLE MAPS -->
     <div id="tab-maritime" class="tab-content">
       <div class="city-card">
         <h2 style="font-size: 1.15rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-anchor" style="color: var(--insular-blue);"></i> Conexiones Marítimas e Interinsulares</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Haz clic en cualquier tarjeta para ver su ruta en el mapa general.</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Visualiza en el mapa o abre directamente la navegación en Google Maps.</p>
         
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;">
           
-          <div class="maritime-card" onclick="showMaritimeRoute('pto-cruz')">
+          <div class="maritime-card">
             <span class="maritime-badge badge-ferry">Navibus / Gran Cacique</span>
-            <h4 style="font-size: 0.95rem; margin: 4px 0;">Punta de Piedras ➔ Puerto La Cruz</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Ruta principal de ferries para pasajeros y vehículos (Anzoátegui).</p>
+            <h4 style="font-size: 0.95rem; margin: 2px 0;">Punta de Piedras ➔ Puerto La Cruz</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Ruta principal de ferries (Anzoátegui).</p>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <button class="btn-action" onclick="showMaritimeRoute('pto-cruz')"><i class="fa-solid fa-map"></i> Ver ruta</button>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Terminal+de+Ferries+Punta+de+Piedras" target="_blank" class="btn-action" style="background: #16a34a;"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>
+            </div>
           </div>
 
-          <div class="maritime-card" onclick="showMaritimeRoute('cumana')">
+          <div class="maritime-card">
             <span class="maritime-badge badge-ferry">Conferry / Navibus</span>
-            <h4 style="font-size: 0.95rem; margin: 4px 0;">Punta de Piedras ➔ Cumaná</h4>
+            <h4 style="font-size: 0.95rem; margin: 2px 0;">Punta de Piedras ➔ Cumaná</h4>
             <p style="font-size: 0.75rem; color: var(--text-muted);">Zarpes hacia el estado Sucre.</p>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <button class="btn-action" onclick="showMaritimeRoute('cumana')"><i class="fa-solid fa-map"></i> Ver ruta</button>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Terminal+de+Ferries+Punta+de+Piedras" target="_blank" class="btn-action" style="background: #16a34a;"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>
+            </div>
           </div>
 
-          <div class="maritime-card" onclick="showMaritimeRoute('chacopata')">
+          <div class="maritime-card">
             <span class="maritime-badge badge-lancha">Lanchas Rápidas</span>
-            <h4 style="font-size: 0.95rem; margin: 4px 0;">El Guamache ➔ Chacopata</h4>
+            <h4 style="font-size: 0.95rem; margin: 2px 0;">El Guamache ➔ Chacopata</h4>
             <p style="font-size: 0.75rem; color: var(--text-muted);">Conexión de pasajeros hacia Sucre norte.</p>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <button class="btn-action" onclick="showMaritimeRoute('chacopata')"><i class="fa-solid fa-map"></i> Ver ruta</button>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=El+Guamache+Margarita" target="_blank" class="btn-action" style="background: #16a34a;"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>
+            </div>
           </div>
 
-          <div class="maritime-card" onclick="showMaritimeRoute('coche-isleta')">
+          <div class="maritime-card">
             <span class="maritime-badge badge-lancha">Asociación de Lancheros</span>
-            <h4 style="font-size: 0.95rem; margin: 4px 0;">Terminal de La Isleta ➔ Isla de Coche</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Zarpes frecuentes hacia San Pedro de Coche.</p>
+            <h4 style="font-size: 0.95rem; margin: 2px 0;">Terminal de La Isleta ➔ Coche</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Zarpes hacia San Pedro de Coche.</p>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <button class="btn-action" onclick="showMaritimeRoute('coche-isleta')"><i class="fa-solid fa-map"></i> Ver ruta</button>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=La+Isleta+Margarita" target="_blank" class="btn-action" style="background: #16a34a;"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>
+            </div>
           </div>
 
-          <div class="maritime-card" onclick="showMaritimeRoute('coche-yaque')">
+          <div class="maritime-card">
             <span class="maritime-badge badge-lancha">Lanchas Turísticas</span>
-            <h4 style="font-size: 0.95rem; margin: 4px 0;">Playa El Yaque ➔ Isla de Coche</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Traslados directos de pasajeros y prestadores turísticos.</p>
+            <h4 style="font-size: 0.95rem; margin: 2px 0;">Playa El Yaque ➔ Coche</h4>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Traslados directos y prestadores turísticos.</p>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <button class="btn-action" onclick="showMaritimeRoute('coche-yaque')"><i class="fa-solid fa-map"></i> Ver ruta</button>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Playa+El+Yaque" target="_blank" class="btn-action" style="background: #16a34a;"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>
+            </div>
           </div>
 
-          <div class="maritime-card" onclick="showMaritimeRoute('carupano')">
+          <div class="maritime-card">
             <span class="maritime-badge badge-turismo">Hidrovías / Cabotaje</span>
-            <h4 style="font-size: 0.95rem; margin: 4px 0;">Faro de La Puntilla (Porlamar) ➔ Carúpano</h4>
+            <h4 style="font-size: 0.95rem; margin: 2px 0;">Faro de La Puntilla (Porlamar) ➔ Carúpano</h4>
             <p style="font-size: 0.75rem; color: var(--text-muted);">Salidas especiales desde el muelle de Porlamar.</p>
-          </div>
-
-          <div class="maritime-card" onclick="showMaritimeRoute('cubagua')">
-            <span class="maritime-badge badge-turismo">Catamaranes y Excursiones</span>
-            <h4 style="font-size: 0.95rem; margin: 4px 0;">Punta de Piedras / El Yaque ➔ Isla de Cubagua</h4>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Paseos turísticos hacia las bahías de Cubagua.</p>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <button class="btn-action" onclick="showMaritimeRoute('carupano')"><i class="fa-solid fa-map"></i> Ver ruta</button>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Faro+de+La+Puntilla+Porlamar" target="_blank" class="btn-action" style="background: #16a34a;"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>
+            </div>
           </div>
 
         </div>
@@ -500,7 +496,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
-    // Base de datos completa con Punta de Piedras, Macanao y la línea corta de Antolín
     const routesData = [
       {
         id: "porlamar-punta-de-piedras",
@@ -549,15 +544,13 @@
       }
     ];
 
-    // Rutas marítimas con nombres comerciales de navieras y coordenadas de llegada a tierra firme / islas
     const maritimeRoutes = {
       'pto-cruz': { name: "Navibus / Gran Cacique: Punta de Piedras ➔ Puerto La Cruz", coords: [[10.9085, -64.1011], [10.2117, -64.6300]] },
       'cumana': { name: "Conferry / Navibus: Punta de Piedras ➔ Cumaná", coords: [[10.9085, -64.1011], [10.4538, -64.1755]] },
       'chacopata': { name: "Lanchas Rápidas: El Guamache ➔ Chacopata", coords: [[10.8750, -63.9800], [10.6865, -63.8190]] },
       'coche-isleta': { name: "Lanchas de Pasajeros: Terminal de La Isleta ➔ Isla de Coche", coords: [[10.9200, -63.8100], [10.7780, -63.9550]] },
       'coche-yaque': { name: "Lanchas Turísticas: Playa El Yaque ➔ Isla de Coche", coords: [[10.9022, -63.9631], [10.7780, -63.9550]] },
-      'carupano': { name: "Hidrovías: Faro de La Puntilla (Porlamar) ➔ Carúpano", coords: [[10.9576, -63.8697], [10.6667, -63.2500]] },
-      'cubagua': { name: "Catamaranes: Punta de Piedras ➔ Isla de Cubagua", coords: [[10.9085, -64.1011], [10.8250, -64.1660]] }
+      'carupano': { name: "Hidrovías: Faro de La Puntilla (Porlamar) ➔ Carúpano", coords: [[10.9576, -63.8697], [10.6667, -63.2500]] }
     };
 
     let map = L.map('map').setView([10.9971, -63.9113], 11);
@@ -628,11 +621,17 @@
           optionsHtml += `<option value="${index}">${op.name} ($${op.fareUsd.toFixed(2)} / ~Bs. ${fareBs})</option>`;
         });
 
+        // Enlace dinámico a Google Maps para la ruta terrestre
+        const gmapsQuery = encodeURIComponent(route.name + " Isla de Margarita");
+
         card.innerHTML = `
-          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; color: var(--text-main);">${route.name}</div>
+          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: var(--text-main);">${route.name}</div>
           <select class="subline-select" onclick="event.stopPropagation()">
             ${optionsHtml}
           </select>
+          <div style="display: flex; justify-content: flex-end; margin-top: 4px;">
+            <a href="https://www.google.com/maps/search/?api=1&query=${gmapsQuery}" target="_blank" class="btn-action" style="background: #16a34a; font-size: 0.7rem; padding: 4px 8px;" onclick="event.stopPropagation()"><i class="fa-solid fa-location-arrow"></i> Google Maps</a>
+          </div>
         `;
         container.appendChild(card);
       });
